@@ -63,6 +63,12 @@ class HCDownloadHTML : HCOperation {
                                                         { (var data , urlResponse, error) -> Void in
             
             
+            defer{
+                
+                  Log.print("In defer")
+                  dispatch_semaphore_signal(self.semaphore)
+             }
+
             
             HCNetworkActivityIndicator.sharedIndicator.hide()
                                                             
@@ -71,20 +77,15 @@ class HCDownloadHTML : HCOperation {
             if self.cancelled{
                 
                 Log.print("operation cancelled")
-                data = nil;
+                return;
             }
             
             if let error = error {
                 
                 Log.print("HTML Download Error \(error)")
-                
+                  return
             }
-            guard data != nil else{
-                
-                dispatch_semaphore_signal(self.semaphore)
-                return
-            }
-            
+                       
             if let  htmlPage =  String(data: data!, encoding: NSUTF8StringEncoding){
                                                                 
                 self.findPageTitle?.htmlPage = htmlPage
@@ -94,7 +95,7 @@ class HCDownloadHTML : HCOperation {
                 signal the semaphore to finish this operation, so that the `HCFindURLTitle`
                 operation can start execution
             */
-            dispatch_semaphore_signal(self.semaphore)
+                       
             
         }
 
