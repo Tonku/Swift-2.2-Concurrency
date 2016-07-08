@@ -1,7 +1,7 @@
 # README #
 
 # README #
-Example usage NSOperation for concurrency in swift 2.0 to find the following patterns in a string  and compose a JSON.
+Example usage NSOperation for concurrency in swift 2.2 to find the following patterns in a string  and compose a JSON.
 
 1, EmotIcons - Emoticons which are alphanumeric strings, no longer than 15 characters, contained in parenthesis eg (success)
 
